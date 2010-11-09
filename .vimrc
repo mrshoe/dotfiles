@@ -14,11 +14,12 @@ map <C-J> <C-W>j
 map <C-K> <C-W>k
 map <C-H> <C-W>h
 map <C-L> <C-W>l
+map + <C-W>+
+map - <C-W>-
 map <C-M> :FufTaggedFile<CR>
 autocmd BufNewFile,BufRead *.py set cinwords=if,elif,else,for,while,try,except,f
 set novb
 set vb
-set tags=$IPODROOT/Firmware/tags,/Users/mrshoe/ipod/mrshoe/snake/Firmware/SilverML.tags
 filetype on
 source /Users/mrshoe/installers/a.vim
 set runtimepath +=/Users/mrshoe/installers/fuzzyfinder
@@ -46,8 +47,15 @@ function! UpdateFufTags()
 	q
 endfunction
 
+function! SetTags()
+	let branch="/Users/mrshoe/ipod/" . readfile("/Users/mrshoe/ipod/current")[0]
+	let &tags=branch . "/Firmware/tags," . branch . "/Firmware/SilverML.tags"
+endfunction
+
+call SetTags()
+
 nmap <silent> ;d :call DoP4Diff()<CR><CR>
-nmap <silent> ;b :call DoBreakpoint("%")<CR><CR>
+nmap <silent> ;b :call DoBreakpoint("%:p")<CR><CR>
 nmap <silent> ;p :!p4 edit %<CR>
 nmap <silent> ;r :!p4 revert %<CR>
 nmap <silent> ;s /\cscreen id.*
