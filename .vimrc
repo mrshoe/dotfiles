@@ -42,8 +42,7 @@ function! PreparePython()
 		let l:lineno = l:lineno + 1
 		if -1 != match(l:line, '^ \+[a-zA-Z_]\+')
 			let l:numspacelines = l:numspacelines + 1
-		endif
-		if -1 != match(l:line, '^\t\+[a-zA-Z_]\+')
+		elseif -1 != match(l:line, '^\t\+[a-zA-Z_]\+')
 			let l:numtablines = l:numtablines + 1
 		endif
 	endwhile
