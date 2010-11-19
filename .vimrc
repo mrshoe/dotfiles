@@ -27,6 +27,7 @@ set number
 
 set background=dark
 highlight LineNr ctermfg=6
+set encoding=utf-8
 set listchars=tab:▸\ ,eol:¬
 set list
 highlight NonText ctermfg=0 cterm=bold
