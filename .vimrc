@@ -24,7 +24,7 @@ autocmd BufNewFile,BufRead,WinEnter *.h,*.m,*.cpp,*.c call DetectSpaces()
 set novb
 set vb
 filetype on
-source /Users/mrshoe/installers/a.vim
+"source /Users/mrshoe/installers/a.vim
 set runtimepath +=/Users/mrshoe/installers/fuzzyfinder
 set runtimepath +=/Users/mrshoe/installers/l9
 set number
@@ -96,7 +96,7 @@ function! SetTags()
 	endif
 endfunction
 
-call SetTags()
+"call SetTags()
 
 nmap <silent> ;d :call DoP4Diff()<CR><CR>
 nmap <silent> ;b :call DoBreakpoint("%:p")<CR><CR>
