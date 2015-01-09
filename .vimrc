@@ -10,35 +10,35 @@ set nocp
 set shiftwidth=4
 set wildignore=*.bak,*.pyc
 let g:alternateExtensions_m = "h"
-let g:alternateExtensions_h = "c,cpp,m"
+let g:alternateExtensions_mm = "h"
+let g:alternateExtensions_h = "c,cpp,m,mm"
 map <C-J> <C-W>j
 map <C-K> <C-W>k
 map <C-H> <C-W>h
 map <C-L> <C-W>l
 map + <C-W>+
 map - <C-W>-
-map <C-M> :FufTaggedFile<CR>
+map <Space> :FufRenewCache<CR>:FufCoverageFile<CR>
+map <C-M> :A<CR>
 autocmd BufNewFile,BufRead,WinEnter *.py call PreparePython()
 autocmd BufNewFile,BufRead,WinEnter *.hs call UseSpaces()
-autocmd BufNewFile,BufRead,WinEnter *.h,*.m,*.cpp,*.c call DetectSpaces()
+autocmd BufNewFile,BufRead,WinEnter *.mm call CheckSpacesVsTabs()
+autocmd BufNewFile,BufRead,WinEnter *.m call CheckSpacesVsTabs()
+autocmd BufNewFile,BufRead,WinEnter *.h call CheckSpacesVsTabs()
+autocmd BufNewFile,BufRead,WinEnter *.c call CheckSpacesVsTabs()
+autocmd BufNewFile,BufRead,WinEnter *.cpp call CheckSpacesVsTabs()
+autocmd BufNewFile,BufRead,WinEnter *.thrift call CheckSpacesVsTabs()
+autocmd BufNewFile,BufRead,WinEnter *.scala call PrepareScala()
 set novb
 set vb
 filetype on
-"source /Users/mrshoe/installers/a.vim
-set runtimepath +=/Users/mrshoe/installers/fuzzyfinder
-set runtimepath +=/Users/mrshoe/installers/l9
 set number
-
 set background=dark
 set encoding=utf-8
 set listchars=tab:▸\ ,eol:¬
 set list
-highlight LineNr ctermfg=0 cterm=bold
-highlight NonText ctermfg=0 cterm=bold
-highlight SpecialKey ctermfg=0 cterm=bold
-highlight Visual ctermbg=245
-highlight PreProc ctermfg=2 cterm=bold
-highlight Type ctermfg=6
+highlight NonText ctermfg=2
+highlight SpecialKey ctermfg=2
 function! UseSpaces()
 	set expandtab
 	set softtabstop=4
@@ -49,9 +49,15 @@ function! UseTabs()
 endfunction
 function! PreparePython()
 	set cinwords=if,elif,else,for,while,try,except,def,class
-	call DetectSpaces()
+	call CheckSpacesVsTabs()
 endfunction
-function! DetectSpaces()
+function! PrepareScala()
+	set filetype=scala
+	set tabstop=2
+	set shiftwidth=2
+	call CheckSpacesVsTabs()
+endfunction
+function! CheckSpacesVsTabs()
 	let l:lineno = 1
 	let l:numlines = line("$")
 	let l:numtablines = 0
@@ -65,7 +71,7 @@ function! DetectSpaces()
 			let l:numtablines = l:numtablines + 1
 		endif
 	endwhile
-	if l:numspacelines > l:numtablines
+	if l:numspacelines >= l:numtablines
 		call UseSpaces()
 	else
 		call UseTabs()
@@ -107,5 +113,6 @@ nmap <silent> ;W :s/    /\t/g<CR>
 nmap <silent> ;l :ts <C-R><C-W><CR>
 vmap <silent> ;w :s/\t/    /g<CR>
 vmap <silent> ;W :s/    /\t/g<CR>
+
 " remap # in insert mode so that vim doesn't remove all indentation on lines that start with #
 inoremap # X#
