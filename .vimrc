@@ -1,5 +1,6 @@
-set nowrap
 syntax on
+filetype on
+set nowrap
 set tabstop=4
 set autoindent
 set smartindent
@@ -9,6 +10,13 @@ set sta
 set nocp
 set shiftwidth=4
 set wildignore=*.bak,*.pyc
+set novb
+set vb
+set number
+set background=dark
+set encoding=utf-8
+set listchars=tab:▸\ ,eol:¬
+set list
 
 let g:alternateExtensions_m = "h"
 let g:alternateExtensions_mm = "h"
@@ -32,15 +40,6 @@ autocmd BufNewFile,BufRead,WinEnter *.c call CheckSpacesVsTabs()
 autocmd BufNewFile,BufRead,WinEnter *.cpp call CheckSpacesVsTabs()
 autocmd BufNewFile,BufRead,WinEnter *.thrift call CheckSpacesVsTabs()
 autocmd BufNewFile,BufRead,WinEnter *.scala call PrepareScala()
-
-set novb
-set vb
-filetype on
-set number
-set background=dark
-set encoding=utf-8
-set listchars=tab:▸\ ,eol:¬
-set list
 
 highlight NonText ctermfg=2
 highlight SpecialKey ctermfg=2
@@ -104,15 +103,10 @@ function! UpdateFufTags()
 endfunction
 
 function! SetTags()
-	if -1 != match(getcwd(), 'Firmware')
-		let branch="/Users/mrshoe/ipod/" . readfile("/Users/mrshoe/ipod/current")[0]
-		let &tags=branch . "/Firmware/tags," . branch . "/Firmware/SilverML.tags"
-	else
-		let &tags=getcwd() . "/tags"
-	endif
+	let &tags=getcwd() . "/tags"
 endfunction
 
-"call SetTags()
+call SetTags()
 
 nmap <silent> ;d :call DoP4Diff()<CR><CR>
 nmap <silent> ;b :call DoBreakpoint("%:p")<CR><CR>
