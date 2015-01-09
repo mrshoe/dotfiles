@@ -49,20 +49,24 @@ function! UseSpaces()
 	set expandtab
 	set softtabstop=4
 endfunction
+
 function! UseTabs()
 	set noexpandtab
 	set softtabstop=0
 endfunction
+
 function! PreparePython()
 	set cinwords=if,elif,else,for,while,try,except,def,class
 	call CheckSpacesVsTabs()
 endfunction
+
 function! PrepareScala()
 	set filetype=scala
 	set tabstop=2
 	set shiftwidth=2
 	call CheckSpacesVsTabs()
 endfunction
+
 function! CheckSpacesVsTabs()
 	let l:lineno = 1
 	let l:numlines = line("$")
