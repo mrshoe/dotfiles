@@ -9,9 +9,11 @@ set sta
 set nocp
 set shiftwidth=4
 set wildignore=*.bak,*.pyc
+
 let g:alternateExtensions_m = "h"
 let g:alternateExtensions_mm = "h"
 let g:alternateExtensions_h = "c,cpp,m,mm"
+
 map <C-J> <C-W>j
 map <C-K> <C-W>k
 map <C-H> <C-W>h
@@ -20,6 +22,7 @@ map + <C-W>+
 map - <C-W>-
 map <Space> :FufRenewCache<CR>:FufCoverageFile<CR>
 map <C-M> :A<CR>
+
 autocmd BufNewFile,BufRead,WinEnter *.py call PreparePython()
 autocmd BufNewFile,BufRead,WinEnter *.hs call UseSpaces()
 autocmd BufNewFile,BufRead,WinEnter *.mm call CheckSpacesVsTabs()
@@ -29,6 +32,7 @@ autocmd BufNewFile,BufRead,WinEnter *.c call CheckSpacesVsTabs()
 autocmd BufNewFile,BufRead,WinEnter *.cpp call CheckSpacesVsTabs()
 autocmd BufNewFile,BufRead,WinEnter *.thrift call CheckSpacesVsTabs()
 autocmd BufNewFile,BufRead,WinEnter *.scala call PrepareScala()
+
 set novb
 set vb
 filetype on
@@ -37,8 +41,10 @@ set background=dark
 set encoding=utf-8
 set listchars=tab:▸\ ,eol:¬
 set list
+
 highlight NonText ctermfg=2
 highlight SpecialKey ctermfg=2
+
 function! UseSpaces()
 	set expandtab
 	set softtabstop=4
